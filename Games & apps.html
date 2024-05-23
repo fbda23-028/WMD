@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="stylezz.css">
+	<link rel="stylesheet" type="text/css" href="styleddd check.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,600;0,800;1,900&display=swap" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>WARNER BROS</title>	
+</head>
+	 
+	 <header>
+		<div class="main">
+		<img src="pic/1w.png" class="logo">
+		
+		 <ul>
+		 <li><a href="index.html">home</a></li>
+		 <li><a href="Movies.html">Movies</a></li>
+		 <li><a href="Tv shows.html">Tv Shows</a></li>
+		 <li class="active"><a href="games & apps.html">Games & apps</a></li>
+		 <li><a href="collections.html">Collections</a></li>
+		 <li><a href="Feedback.html">Feedback</a></li>
+		 </li>
+		</ul>
+		</header>
+ </div>
+ <body>
+<div class="slide-container">
+	
+	<div class="slides">
+		<img src="pic/aleta.jpg" class="active">
+		<img src="pic/app1.jpg">
+		<img src="pic/12121.jpg">
+		<img src="pic/app4.png">
+		<img src="pic/game5.jpg">
+	</div>
+
+	<div class="buttons">
+		<span class="next">&#10095;</span>
+		<span class="prev">&#10094;</span>
+	</div>
+
+	<div class="dotsContainer">
+		<div class="dot active" attr='0' onclick="switchImage(this)"></div>
+		<div class="dot" attr='1' onclick="switchImage(this)"></div>
+		<div class="dot" attr='2' onclick="switchImage(this)"></div>
+		<div class="dot" attr='3' onclick="switchImage(this)"></div>
+		<div class="dot" attr='4' onclick="switchImage(this)"></div>
+	</div>
+
+</div>
+
+</div>
+            <div class="movie-list-container">
+                <h1 class="movie-list-title">MOST POPULAR APPS</h1>
+                <div class="movie-list-wrapper">
+                    <div class="movie-list">
+					
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="pic/app3.jpg" alt="">
+                            <span class="movie-list-item-title">AMAZON APP</span>
+                            <p class="movie-list-item-desc"><p>
+                            <button class="movie-list-item-button">
+							<a href="amazon.html" >DOWNLOAD</a></button></p>
+							
+                        </div>
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="pic/game4.jpg" alt="">
+                            <span class="movie-list-item-title">NEED FOR SPEED</span>
+                            <p class="movie-list-item-desc"></p>
+                            <button class="movie-list-item-button">
+							<a href="needforspeed.html">PLAY</a></button></p>
+                        </div>
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="pic/app5.png" alt="">
+                            <span class="movie-list-item-title">TICK TOCK</span>
+                            <p class="movie-list-item-desc"></p>
+                            <button class="movie-list-item-button">
+							<a href="ticktock.html">DOWNLOAD</a></button></p>
+                        </div>
+                        <div class="movie-list-item">
+                            <img class="movie-list-item-img" src="pic/game5.jpg" alt="">
+                            <span class="movie-list-item-title">HITMAN</span>
+                            <p class="movie-list-item-desc"></p>
+                            <button class="movie-list-item-button">
+							<a href="hitman.html">PLAY</a></button></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<script type="text/javascript">
+	
+	// Access the Images
+	let slideImages = document.querySelectorAll('img');
+	// Access the next and prev buttons
+	let next = document.querySelector('.next');
+	let prev = document.querySelector('.prev');
+	// Access the indicators
+	let dots = document.querySelectorAll('.dot');
+
+	var counter = 0;
+
+	// Code for next button
+	next.addEventListener('click', slideNext);
+	function slideNext(){
+	slideImages[counter].style.animation = 'next1 0.5s ease-in forwards';
+	if(counter >= slideImages.length-1){
+		counter = 0;
+	}
+	else{
+		counter++;
+	}
+	slideImages[counter].style.animation = 'next2 0.5s ease-in forwards';
+	indicators();
+	}
+
+	// Code for prev button
+	prev.addEventListener('click', slidePrev);
+	function slidePrev(){
+	slideImages[counter].style.animation = 'prev1 0.5s ease-in forwards';
+	if(counter == 0){
+		counter = slideImages.length-1;
+	}
+	else{
+		counter--;
+	}
+	slideImages[counter].style.animation = 'prev2 0.5s ease-in forwards';
+	indicators();
+	}
+
+	// Auto slideing
+	function autoSliding(){
+		deletInterval = setInterval(timer, 3000);
+		function timer(){
+			slideNext();
+			indicators();
+		}
+	}
+	autoSliding();
+
+	// Stop auto sliding when mouse is over
+	const container = document.querySelector('.slide-container');
+	container.addEventListener('mouseover', function(){
+		clearInterval(deletInterval);
+	});
+
+	// Resume sliding when mouse is out
+	container.addEventListener('mouseout', autoSliding);
+
+	// Add and remove active class from the indicators
+	function indicators(){
+		for(i = 0; i < dots.length; i++){
+			dots[i].className = dots[i].className.replace(' active', '');
+		}
+		dots[counter].className += ' active';
+	}
+
+	// Add click event to the indicator
+	function switchImage(currentImage){
+		currentImage.classList.add('active');
+		var imageId = currentImage.getAttribute('attr');
+		if(imageId > counter){
+		slideImages[counter].style.animation = 'next1 0.5s ease-in forwards';
+		counter = imageId;
+		slideImages[counter].style.animation = 'next2 0.5s ease-in forwards';
+		}
+		else if(imageId == counter){
+			return;
+		}
+		else{
+		slideImages[counter].style.animation = 'prev1 0.5s ease-in forwards';
+		counter = imageId;
+		slideImages[counter].style.animation = 'prev2 0.5s ease-in forwards';	
+		}
+		indicators();
+	}
+
+</script>
+</body>
+</html>
